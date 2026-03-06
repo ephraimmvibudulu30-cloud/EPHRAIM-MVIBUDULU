@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="site portfolio.">
+        <meta name="keywords" content="site web gratuit pour personne qui ont besoin des solution informatique à leur probleme et installation electrique">
+        <meta name="author" content="MVIBUDULU BELO Ephraim">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+        <title>EPHRAIM MVIBUDULU</title>
+        <style>
+            :root{
+                /* light theme (default) */
+                --bg: #F4F4F4;
+                --card: #FFFFFF;
+                --primary: #0EA5A4;
+                --accent: #FF6A00;
+                --text: #1F2937;
+                --muted: #6b7280;
+                --header-bg: linear-gradient(90deg,#0ea5a4 0%, #06b6d4 50%, #7c3aed 100%);
+                --shadow: rgba(0,0,0,0.08);
+                /* icon tile colors */
+                --icon-bg: #0b1220; /* dark tile in light theme */
+                --icon-fg: #ffffff; /* icon foreground (fill) in light theme */
+            }
+            .dark{
+                --bg: #071427;
+                --card: rgba(255,255,255,0.04);
+                --primary: #06b6d4;
+                --accent: #FF6A00;
+                --text: #e6eef8;
+                --muted: #9aa7b2;
+                --header-bg: linear-gradient(90deg,var(--primary), #7c3aed);
+                --shadow: rgba(0,0,0,0.6);
+                /* icon tile colors for dark theme */
+                --icon-bg: var(--primary);
+                --icon-fg: #071427; /* dark icon color on colored tile */
+            }
+            body {
+                font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: var(--bg);
+                color: var(--text);
+                transition: background-color .35s ease, color .35s ease;
+            }
+            header{ display:flex; align-items:center; justify-content:space-between; padding:20px; background:var(--header-bg); color:#fff; box-shadow:0 6px 30px rgba(2,6,23,0.2) }
+            /* responsive navigation */
+            #nav-toggle{ display:none; background:transparent; border:1px solid rgba(255,255,255,0.08); color:inherit; padding:6px 10px; border-radius:8px; cursor:pointer }
+            .menu.open nav ul{ display:flex; flex-direction:column; gap:10px }
+            .title { margin-left: 20px; }
+            .title-name { margin: 0; font-weight:700; letter-spacing:0.6px; font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif }
+            .subtitle { margin: 0; font-size: 14px; opacity:0.9 }
+            .menu ul { list-style-type: none; margin: 0; padding: 0; display: flex; align-items:center; gap:12px }
+            .menu ul li { margin-right: 0; }
+            .menu ul li a { color: #fff; text-decoration: none; padding:8px 12px; border-radius:8px; font-weight:600; }
+            .menu ul li a:hover { background: rgba(255,255,255,0.06); }
+            #theme-toggle{background:transparent;border:1px solid rgba(255,255,255,0.08);color:inherit;padding:6px 8px;border-radius:8px;cursor:pointer}
+            .btn-cta { background: var(--accent); color:#fff; padding:10px 16px; border-radius:12px; text-decoration:none; font-weight:700; box-shadow: 0 8px 30px rgba(255,106,0,0.14); }
+            .btn-cta:hover { transform: translateY(-2px); }
+            main { padding: 40px 20px; max-width:1100px; margin:0 auto; transition: all .35s ease }
+            .hero { background: linear-gradient(180deg, rgba(124,58,237,0.06), rgba(14,165,164,0.03)); padding:36px; border-radius:16px; margin-bottom:28px; display:flex; align-items:center; justify-content:space-between; gap:24px }
+            .hero h1 { font-family: 'Orbitron', sans-serif; font-size:48px; margin:0; color: var(--text); letter-spacing:0.8px }
+            .hero p { margin:6px 0 0 0; color: var(--muted) }
+            .hero .hero-actions { display:flex; gap:12px; align-items:center }
+            section { margin-bottom: 40px; }
+            .soustitre {text-align: center; margin-bottom: 20px; }
+            .identity, .experience { display: flex; justify-content: space-between; gap:4%; }
+            .id, .about, .history, .competence { width: 48%; background-color: var(--card); padding: 20px; border-radius:12px; box-shadow: 0 10px 30px var(--shadow); backdrop-filter: blur(6px); transition: transform .25s ease, box-shadow .25s ease }
+            .id img { max-width: 100%; height: 200px; margin-bottom: 20px; border-radius: 12px; object-fit:cover }
+            .competence div { display: flex; align-items: center; margin-bottom: 20px; gap:14px }
+            .competence div img { width: 56px; height: 56px; border-radius:10px; }
+            /* services grid icon sizing */
+            .services-grid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px; margin-top:16px }
+            .services-grid li{ background:var(--card); padding:12px 14px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.06); list-style:none; display:flex; gap:12px; align-items:center }
+            .services-grid li img{ width:20px; height:20px; display:block }
+            .services-grid li span{ font-size:15px; color:var(--text) }
+            /* default: no filter so icons keep their natural color in light theme */
+            .icon-bg{ background:var(--icon-bg); border-radius:12px; width:64px; height:64px; display:inline-flex; align-items:center; justify-content:center; color:var(--icon-fg) }
+            .icon-bg svg{ width:28px; height:28px; fill:var(--icon-fg); display:block }
+            .icon-bg.medium{ width:56px; height:56px }
+            /* Section header: inline icon and title, size icon to match heading height */
+            .section-header, .services-header { display:flex; align-items:center; gap:12px }
+            .section-header .soustitre, .services-header .soustitre { text-align:left; margin:0; font-size:22px; line-height:1 }
+            .section-header .icon-bg, .services-header .icon-bg { width:44px; height:44px; border-radius:10px }
+            .section-header .icon-bg svg, .services-header .icon-bg svg { width:22px; height:22px }
+            /* no filter: we'll use colored SVG/PNG icons so they look correct in both themes */
+            .card-hover:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.12); }
+            footer { background: var(--header-bg); color: #fff; text-align: center; padding: 10px 0; position: relative; width: 100%; bottom: 0; }
+            /* Mobile / Tablet breakpoints */
+            @media (max-width: 900px) {
+                header{ flex-direction:column; align-items:flex-start; padding:14px }
+                .title{ margin-left:8px }
+                #nav-toggle{ display:inline-block; margin-left:auto }
+                .menu{ width:100% }
+                .menu nav ul{ display:none; width:100%; margin-top:12px }
+                .menu.open nav ul{ display:flex }
+                .hero{ flex-direction:column; align-items:flex-start }
+                .identity,.experience{ flex-direction:column }
+                .id,.about,.history,.competence{ width:100% }
+            }
+            @media (max-width: 480px) {
+                header{ padding:12px }
+                .title-name{ font-size:18px }
+                .hero{ padding:18px ; width: 91%;}
+                .hero h1{ font-size:20px }
+                main{ padding:16px }
+                .services-preview{ grid-template-columns:1fr }
+                .id, .about, .history, .competence{ position: relative; right: 2.5px; width: 90%; }
+                .id{margin-bottom: 20px;}
+                .history{margin-bottom: 20px;}
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <h1 class="title-name">EPHRAIM MVIBUDULU</h1>
+                <p class="subtitle">votre bonheur ma mission</p>
+            </div>
+            <div class="menu">
+                <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" target="_blank">ACCEUIL</a></li>
+                        <li><a href="services.html">SERVICE</a></li>
+                        <li><a href="contact.html" target="_blank">CONTACT</a></li>
+                        <li><button id="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="hero">
+            <div>
+                <h1>MES SERVICES</h1>
+                <p>Solutions web, mobiles et installations électriques conçues pour vos besoins.</p>
+            </div>
+            <div class="hero-actions">
+                <a class="btn-cta" href="contact.html">Demander un devis</a>
+            </div>
+        </div>
+        <main>
+            <!-- Section 1: Intro + short description (two-column model) -->
+            <section class="identity">
+                <div class="id">
+                    <div class="services-header">
+                        <span class="icon-bg medium" aria-hidden="true">
+                            <!-- gear/service SVG -->
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19.14 12.94a7.002 7.002 0 0 0 0-1.88l2.03-1.58a.5.5 0 0 0 .12-.63l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.027 7.027 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 13.7 2h-3.4a.5.5 0 0 0-.49.42l-.36 2.54c-.57.22-1.1.52-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.85a.5.5 0 0 0 .12.63L4.86 11a7.002 7.002 0 0 0 0 1.88L2.83 14.46a.5.5 0 0 0-.12.63l1.92 3.32c.16.28.49.4.78.29l2.39-.96c.5.42 1.05.75 1.62.94l.36 2.54c.05.27.27.46.49.46h3.4c.25 0 .46-.19.49-.46l.36-2.54c.57-.22 1.12-.52 1.62-.94l2.39.96c.29.12.62-.01.78-.29l1.92-3.32a.5.5 0 0 0-.12-.63l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+                        </span>
+                        <h2 class="soustitre">MES SERVICES</h2>
+                    </div>
+                    <ul class="services-grid">
+                        <li><span>Développement de sites web personnalisés</span></li>
+                        <li><span>Applications mobiles (iOS & Android)</span></li>
+                        <li><span>Conception de logiciels sur mesure</span></li>
+                    </ul>
+                </div>
+                <div class="about">
+                    <h3>Comment je travaille</h3>
+                    <p>J'écoute vos besoins, je conçois une solution adaptée et je livre un produit maintenable. Je propose aussi un accompagnement et une formation pour faciliter la prise en main.</p>
+                    <p>Mes services couvrent le développement, la maintenance, la sécurité et l'installation électrique pour des projets résidentiels et industriels.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: Details / compétences (same two-column model) -->
+            <section class="experience">
+                <div class="history">
+                    <div class="section-header">
+                        <span class="icon-bg" aria-hidden="true">
+                            <!-- simple list SVG (fill follows --icon-fg) -->
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="3" height="3" rx="1"/><rect x="3" y="10.5" width="3" height="3" rx="1"/><rect x="3" y="16" width="3" height="3" rx="1"/><rect x="8" y="6" width="13" height="1.2" rx="0.6"/><rect x="8" y="11.5" width="13" height="1.2" rx="0.6"/><rect x="8" y="17" width="13" height="1.2" rx="0.6"/></svg>
+                        </span>
+                        <h2 class="soustitre">DÉTAILS DES SERVICES</h2>
+                    </div>
+                    <ul>
+                        <li>Sites web responsive et e-commerce</li>
+                        <li>Applications mobiles natives et hybrides</li>
+                        <li>Logiciels métiers et automatisation</li>
+                        <li>Maintenance, support et optimisation</li>
+                        <li>Installation électrique conforme aux normes</li>
+                        <li>Formations et accompagnement technique</li>
+                    </ul>
+                </div>
+                <div class="competence">
+                    <div class="section-header">
+                        <span class="icon-bg" aria-hidden="true">
+                            <!-- star SVG -->
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5l2.6 5.3 5.8.8-4.2 3.9 1 5.7L12 16.9 6.8 18.2l1-5.7L3.6 8.6l5.8-.8L12 2.5z"/></svg>
+                        </span>
+                        <h2 class="soustitre">POINTS FORTS</h2>
+                    </div>
+                    <div>
+                        <p>Approche orientée utilisateur et performance</p>
+                    </div>
+                    <div>
+                        <p>Respect des délais et bonne communication</p>
+                    </div>
+                    <div>
+                        <p>Solutions sécurisées et maintenables</p>
+                    </div>
+                    <div>
+                        <p>Compétences en électricité et informatique</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>Copyright © 2026 Ephraim MVIBUDULU. Tous droits réservés.</p>
+        </footer>
+        <script>
+            (function(){
+                const themeBtn = document.getElementById('theme-toggle');
+                const navBtn = document.getElementById('nav-toggle');
+                const menu = document.querySelector('.menu');
+                const current = localStorage.getItem('theme') || 'light';
+                if(current === 'dark') document.documentElement.classList.add('dark');
+                function updateThemeButton(){ if(!themeBtn) return; themeBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; }
+                updateThemeButton();
+                if(themeBtn) themeBtn.addEventListener('click', ()=>{
+                    const isDark = document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                    updateThemeButton();
+                });
+                if(navBtn && menu){
+                    navBtn.addEventListener('click', ()=>{
+                        const open = menu.classList.toggle('open');
+                        navBtn.setAttribute('aria-expanded', open);
+                    });
+                }
+            })();
+        </script>
+    </body>
+</html>
